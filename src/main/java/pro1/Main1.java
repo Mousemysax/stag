@@ -3,6 +3,8 @@ package pro1;
 import com.google.gson.Gson;
 import pro1.apiDataModel.ActionsList;
 
+import java.util.function.Predicate;
+
 public class Main1 {
     public static void main(String[] args) {
         System.out.println(emptyActionsCount("KIKM",2024));
@@ -13,6 +15,6 @@ public class Main1 {
         String json = Api.getActionsByDepartment(department,year);
         ActionsList actions= new Gson().fromJson(json, ActionsList.class);
 
-        return -1; // TODO 1.1: Vrať počet akcí, které mají 0 přihlášených studentů
+        return actions.items.stream().filter(a -> a.personsCount ==0).count(); // TODO 1.1: Vrať počet akcí, které mají 0 přihlášených studentů
     }
 }
