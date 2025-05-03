@@ -7,6 +7,7 @@ import pro1.apiDataModel.TeachersList;
 
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public class Main3 {
 
@@ -30,7 +31,8 @@ public class Main3 {
             hashMap.put(a.teacherId,current + a.personsCount);
         });
         long bestTeacherId = hashMap.entrySet().stream().max(Comparator.comparing(h-> h.getValue())).get().getKey();
-        return teachers.items.stream().filter(t->t.id==bestTeacherId).map(teacher -> teacher.email).toString();
+        return teachers.items.stream().filter(t->t.id==bestTeacherId).map(teacher -> teacher.email).collect(Collectors.joining());
+
     }
 
     public static long TeacherScore(long teacherId, ActionsList departmentSchedule)
